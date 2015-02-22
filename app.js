@@ -6,13 +6,31 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var socket = require('socket.io');
 var http = require('http');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    bcrypt = require('bcrypt'),
+    SALT_WORK_FACTOR = 10;
 
+// Mongoose
+mongoose.connect('mongodb://localhost:27017/nodejs-tchat', function (error) {
+    if (error) {
+        console.log(error);
+    }
+});;
+
+// Mongoose Schema definition
+var Schema = mongoose.Schema;
+var UserSchema = new Schema({
+    email: { type: String, required: true, index: { unique: true }},
+    password: { type: String, required: true }
+});
+
+// Routing
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var server = http.createServer(app).listen(8080);
-var io = socket.listen(server);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,11 +79,43 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// Create server's socket
+var server = http.createServer(app).listen(8080);
+var io = socket.listen(server);
+var users = {};
+
+
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+
+    var currentUser = false;
+
+    // Display all users connected
+    displayUsersConnected(socket);
+
+    socket.on('login', function (user) {
+        currentUser = user;
+        currentUser.id = currentUser.email.replace(/@/g, '-').replace(/\./g, '-');
+        users[currentUser.id] = currentUser.id;
+        io.sockets.emit('notificationUserConnection', currentUser);
+        socket.emit('userConnection');
+    });
+
+    socket.on('disconnect', function () { 
+        if(!currentUser) {
+            return false;
+        }
+        delete users[currentUser.id];
+        io.sockets.emit('notificationUserDisconnect', currentUser);
+    });
+
 });
+
+// Display all users connected
+function displayUsersConnected(socket) {
+    for(var index in users) {
+        socket.emit('notificationUserConnection', users[index]);
+    }
+}
+
 
 module.exports = app;

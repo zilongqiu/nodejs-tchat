@@ -1,10 +1,12 @@
 extends layout
 
 block content
-  h1 Le super Chat temps réel !
-  p Welcome to #{title}
+  h1 NodeJS Tchat !
+
+  div
+      ul(id="users")
 
   form(name="login", id="login", action="/", method="post")
-      input(type="text", name="user", placeholder="Email")
-      input(type="password", name="pass", placeholder="Password")
+      input(type="text", name="email", id="email", placeholder="Email")
+      input(type="password", name="password", id="password", placeholder="Password")
       input(type="submit", value="Connexion")
