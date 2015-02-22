@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
+  h1 Le super Chat temps réel !
   p Welcome to #{title}
+
+  form(name="login", id="login", action="/", method="post")
+      input(type="text", name="user", placeholder="Email")
+      input(type="password", name="pass", placeholder="Password")
+      input(type="submit", value="Connexion")
