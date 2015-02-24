@@ -21,7 +21,6 @@ $(function() {
 	});
 
 	socket.on('notificationUserDisconnect', function(user) {
-		console.log(user.id);
 		$('#user-'+user.id).remove();
 	});
 
