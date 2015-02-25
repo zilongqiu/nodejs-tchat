@@ -19,8 +19,9 @@ $(function() {
 
 	// User connected
 	socket.on('userConnection', function () {
-		$("#login" ).hide("slide", { direction: "right" }, 1200);
-        $("#users").delay(400).show("slide", { direction: "right" }, 1200);
+		$("#login" ).hide("slide", function() {
+        	$("#users").show("slide");
+		});
 	});
 
 	// User disconnect
