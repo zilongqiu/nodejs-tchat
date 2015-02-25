@@ -31,10 +31,33 @@ var users = require('./routes/users');
 
 var app = express();
 
+// Allow to access to node_modules ressources
+app.get('/css/bootstrap.min.css',function(req,res) {
+    res.sendFile(path.join(__dirname,'node_modules','bootstrap','dist','css','bootstrap.min.css'));
+});
+
+app.get('/js/bootstrap.min.js',function(req,res) {
+    res.sendFile(path.join(__dirname,'node_modules','bootstrap','dist','js','bootstrap.min.js'));
+});
+
+app.get('/js/jquery.min.js',function(req,res) {
+    res.sendFile(path.join(__dirname,'node_modules','jquery','dist','jquery.min.js'));
+});
+
+app.get('/js/jquery.min.map',function(req,res) {
+    res.sendFile(path.join(__dirname,'node_modules','jquery','dist','jquery.min.map'));
+});
+
+app.get('/js/socket.io.js',function(req,res) {
+    res.sendFile(path.join(__dirname,'node_modules','socket.io','node_modules','socket.io-client','socket.io.js'));
+});
+
 // Create server's socket
 var server = http.createServer(app).listen(8080);
 var io = socket.listen(server);
 require('./modules/user.js').initialize(io);
+
+
 
 
 // view engine setup
