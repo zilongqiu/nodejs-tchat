@@ -1,11 +1,30 @@
 doctype html
-html
+html(lang="fr")
   head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+
     title NodeJS Tchat
+
+    <!-- Bootstrap -->
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+
+    <!-- CSS -->
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
 
+    div.container
+        block content_title
+            h1 NodeJS Tchat !
+        block content
+
+    <!-- JQuery -->
     script(src='/javascripts/jquery-1.11.2.min.js')
+
+    <!-- Bootstrap -->	
+    script(src='/javascripts/bootstrap.min.js')
+
+    <!-- JS -->
     script(src='/javascripts/socket.io.js')
     script(src='/javascripts/client.js')

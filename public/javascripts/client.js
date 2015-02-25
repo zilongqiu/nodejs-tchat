@@ -17,7 +17,8 @@ $(function() {
 	});
 
 	socket.on('userConnection', function () {
-		console.log('Im logged');
+		// Hide login form
+		$('#login').hide();
 	});
 
 	socket.on('notificationUserDisconnect', function(user) {
