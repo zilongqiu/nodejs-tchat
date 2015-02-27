@@ -1,9 +1,13 @@
 $(function() {
 
-	var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://localhost:8000');
 
-	// LOGIN
-	$('#login').submit(function(e) {
+	/**
+	 * USER LOGIN
+	 **/
+
+	// Login form submit
+	$('#loginForm').submit(function(e) {
 		e.preventDefault();
 
 		socket.emit('login', { 
@@ -19,8 +23,11 @@ $(function() {
 
 	// User connected
 	socket.on('userConnection', function () {
-		$("#login" ).hide("slide", function() {
-        	$("#users").show("slide");
+		$("#loginForm" ).hide("slide", function() {
+        	$("#users").show("slide", function() {
+        		$("#messages").delay(400).show("slide");
+        		$("#messageForm").show("slide");
+        	});
 		});
 	});
 
@@ -28,6 +35,11 @@ $(function() {
 	socket.on('notificationUserDisconnect', function(user) {
 		$('#user-'+user.id).remove();
 	});
+
+	/**
+	 * USER MESSAGES
+	 **/
+		
 
 
 });

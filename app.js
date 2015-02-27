@@ -48,8 +48,6 @@ var io = socket.listen(server);
 require('./modules/user/user.js').initialize(io);
 
 
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
