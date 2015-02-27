@@ -3,11 +3,17 @@ extends layout
 block content
 
     div(class="row")
-        div(class="col-md-4")
+        div(class="col-sm-3")
             ul(class="hidden-element", id="users")
-        div(class="col-md-8")
-            div(class="col-md-12 hidden-element", id="messages")
-            div(class="col-md-12")
+        div(class="col-sm-9")
+            div(class="col-sm-12 no-padding hidden-element", id="messages")
+                div(class="message" id="message-template")
+                    div(class="info")
+                        p
+                            strong {{user.username}}
+                        p {{message}}
+                        span(class="date") {{h}}:{{m}}
+            div(class="col-sm-12")
                 form(class="hidden-element form-horizontal", id="messageForm", action="/", method="post")
                     div(class="form-group")
                         input(type="text", name="message", id="message", class="form-control", placeholder="My message...")
@@ -16,9 +22,13 @@ block content
         div(class="col-md-offset-3 col-md-6")
             form(class="form-horizontal", id="loginForm", action="/", method="post")
                 div(class="form-group")
+                    label(for="username", class="col-sm-2 control-label") Username
+                    div(class="col-sm-10")
+                        input(type="text", name="username", class="form-control", id="username", placeholder="Username", required="required")
+                div(class="form-group")
                     label(for="email", class="col-sm-2 control-label") Email
                     div(class="col-sm-10")
-                        input(type="text", name="email", class="form-control", id="email", placeholder="Email")
+                        input(type="text", name="email", class="form-control", id="email", placeholder="Email", required="required")
                 div(class="form-group")
                     label(for="password", class="col-sm-2 control-label") Password
                     div(class="col-sm-10")

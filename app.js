@@ -38,6 +38,7 @@ resourceLoader.matchLocalResource(app, '/css/bootstrap.min.css', path.join(__dir
 
 // Match JS
 resourceLoader.matchLocalResource(app, '/js/bootstrap.min.js', path.join(__dirname,'node_modules','bootstrap','dist','js','bootstrap.min.js'));
+resourceLoader.matchLocalResource(app, '/js/mustache.min.js', path.join(__dirname,'node_modules','mustache','mustache.min.js'));
 resourceLoader.matchLocalResource(app, '/js/jquery.min.js', path.join(__dirname,'node_modules','jquery','dist','jquery.min.js'));
 resourceLoader.matchLocalResource(app, '/js/jquery.min.map', path.join(__dirname,'node_modules','jquery','dist','jquery.min.map'));
 resourceLoader.matchLocalResource(app, '/js/socket.io.js', path.join(__dirname,'node_modules','socket.io','node_modules','socket.io-client','socket.io.js'));

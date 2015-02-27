@@ -6,6 +6,10 @@ body {
 	background: #F2F2F2;
 }
 
+.no-padding {
+	padding: 0;
+}
+
 .hidden-element {
 	display: none;
 }
@@ -13,3 +17,32 @@ body {
 /**
  * CONTENT
  **/
+#messages {
+	height: 400px;
+	overflow-y: scroll;
+}
+
+.message {
+	margin: 0 0 5px 0;
+}
+
+.message .info {
+	background: #FFF;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 10px;
+	position: relative;
+}
+
+.message p {
+	margin: 0;
+}
+
+.message span.date {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 12px;
+	opacity: 0.5;
+}
