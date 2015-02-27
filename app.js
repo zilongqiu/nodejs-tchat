@@ -31,31 +31,21 @@ var users = require('./routes/users');
 
 var app = express();
 
-// Allow to access to node_modules ressources
-app.get('/css/bootstrap.min.css',function(req,res) {
-    res.sendFile(path.join(__dirname,'node_modules','bootstrap','dist','css','bootstrap.min.css'));
-});
+// Match url with local resource
+var resourceLoader = require('./modules/resource/resource-loader.js');
+// Match CSS
+resourceLoader.matchLocalResource(app, '/css/bootstrap.min.css', path.join(__dirname,'node_modules','bootstrap','dist','css','bootstrap.min.css'));
 
-app.get('/js/bootstrap.min.js',function(req,res) {
-    res.sendFile(path.join(__dirname,'node_modules','bootstrap','dist','js','bootstrap.min.js'));
-});
-
-app.get('/js/jquery.min.js',function(req,res) {
-    res.sendFile(path.join(__dirname,'node_modules','jquery','dist','jquery.min.js'));
-});
-
-app.get('/js/jquery.min.map',function(req,res) {
-    res.sendFile(path.join(__dirname,'node_modules','jquery','dist','jquery.min.map'));
-});
-
-app.get('/js/socket.io.js',function(req,res) {
-    res.sendFile(path.join(__dirname,'node_modules','socket.io','node_modules','socket.io-client','socket.io.js'));
-});
+// Match JS
+resourceLoader.matchLocalResource(app, '/js/bootstrap.min.js', path.join(__dirname,'node_modules','bootstrap','dist','js','bootstrap.min.js'));
+resourceLoader.matchLocalResource(app, '/js/jquery.min.js', path.join(__dirname,'node_modules','jquery','dist','jquery.min.js'));
+resourceLoader.matchLocalResource(app, '/js/jquery.min.map', path.join(__dirname,'node_modules','jquery','dist','jquery.min.map'));
+resourceLoader.matchLocalResource(app, '/js/socket.io.js', path.join(__dirname,'node_modules','socket.io','node_modules','socket.io-client','socket.io.js'));
 
 // Create server's socket
-var server = http.createServer(app).listen(8080);
+var server = http.createServer(app).listen(8000);
 var io = socket.listen(server);
-require('./modules/user.js').initialize(io);
+require('./modules/user/user.js').initialize(io);
 
 
 
