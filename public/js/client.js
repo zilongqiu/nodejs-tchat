@@ -21,7 +21,7 @@ $(function() {
 
 	// List all users connected
 	socket.on('notification_user_connection', function (user) {
-		$('#users').append('<li id="user-' + user.id + '">' + user.username + '</li>')
+		$('#users').append('<li id="user-' + user.id + '"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> ' + user.username + '</li>')
 	});
 
 	// User connected
