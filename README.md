@@ -4,6 +4,14 @@
 
 **NodeJS Tchat** is a simple tchat using socket.io. 
 
+This project use :
+- Express
+- Jade
+- Socket.io
+- Moustache
+- Bootstrap
+- JQuery
+
 ![ScreenShot](http://s22.postimg.org/aqdjln4yp/login.png)
 ![ScreenShot](http://s24.postimg.org/k02bjz279/tchat.png)
 
