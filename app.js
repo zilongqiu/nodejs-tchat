@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var socket = require('socket.io');
 var http = require('http');
+var passport = require('passport');
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt'),
+    bcrypt = require('bcrypt-nodejs'),
     SALT_WORK_FACTOR = 10;
 
 // Mongoose
@@ -17,13 +18,6 @@ mongoose.connect('mongodb://localhost:27017/nodejs-tchat', function (error) {
         console.log(error);
     }
 });;
-
-// Mongoose Schema definition
-var Schema = mongoose.Schema;
-var UserSchema = new Schema({
-    email: { type: String, required: true, index: { unique: true }},
-    password: { type: String, required: true }
-});
 
 // Routing
 var routes = require('./routes/index');
@@ -48,6 +42,11 @@ var server = http.createServer(app).listen(8000);
 var io = socket.listen(server);
 require('./modules/user/user.js').initialize(io);
 
+// required for passport
+app.use(session({ secret: '45145fad89214d1c0b50f66fadde7a6d0e885012' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,8 +60,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = db;
+    req.passport = passport;
+    next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
+
+
 
 
 // catch 404 and forward to error handler
